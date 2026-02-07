@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - Carteira Virtual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+        
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        pre code {
+            color: #333;
+            padding: 0;
+            background: none;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #f4f4f4;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        tr:hover {
+            background: #f9fafb;
+        }
+        
+        .quick-links {
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .quick-links a {
+            display: block;
+            padding: 10px;
+            color: #667eea;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        
+        .quick-links a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📈 Carteira Virtual</h1>
+            <p>Documentação Completa - Gestão de Ativos da Bolsa de Valores</p>
+        </header>
+        
+        <div class="content">
+            <h2>🎯 Visão Geral</h2>
+            <p>
+                <strong>Carteira Virtual</strong> é uma plataforma web responsiva e moderna para gerenciar seu portfólio de investimentos. 
+                Desenvolvida com tecnologias web modernas e integrada com Firebase, oferece análise em tempo real de seus ativos.
+            </p>
+            
+            <h2>✨ Funcionalidades Principais</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 Dashboard</h4>
+                    <p>Visualize o desempenho do seu portfólio com gráficos interativos e resumos em tempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💼 Gestão de Ativos</h4>
+                    <p>Adicione, edite e remova ativos facilmente. Suporte para ações, fundos, criptomoedas e renda fixa.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📝 Transações</h4>
+                    <p>Histórico completo de compras e vendas com filtros por data e tipo.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 Análise</h4>
+                    <p>Gráficos de volatilidade, risco e desempenho mensal com indicadores técnicos.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌙 Modo Escuro</h4>
+                    <p>Interface confortável com suporte a modo claro e escuro.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 Responsivo</h4>
+                    <p>Funciona perfeitamente em smartphones, tablets e computadores.</p>
+                </div>
+            </div>
+            
+            <h2>🚀 Começar Rapidamente</h2>
+            
+            <h3>Requisitos</h3>
+            <ul>
+                <li>Node.js 14+ ou Python 3.6+</li>
+                <li>Navegador moderno (Chrome, Firefox, Safari, Edge)</li>
+                <li>Conexão com a internet</li>
+            </ul>
+            
+            <h3>Instalação</h3>
+            <pre><code># 1. Clonar o repositório
+git clone https://github.com/robsoncsoares/carteira-virtual.git
+cd carteira-virtual
+
+# 2. Instalar dependências (opcional)
+npm install
+
+# 3. Iniciar servidor
+npm start
+# ou se preferir Python
+python3 -m http.server 8000
+
+# 4. Abrir no navegador
+# http://localhost:8000</code></pre>
+            
+            <div class="alert success">
+                <strong>✅ Nota:</strong> A aplicação funciona sem Firebase (modo offline) com dados armazenados em localStorage.
+            </div>
+            
+            <h2>⚙️ Configuração Firebase</h2>
+            
+            <h3>Por que Firebase?</h3>
+            <ul>
+                <li>☁️ Armazenamento em nuvem seguro</li>
+                <li>🔐 Autenticação confiável</li>
+                <li>📱 Sincronização entre dispositivos</li>
+                <li>⚡ Performance em tempo real</li>
+                <li>💰 Plano gratuito até 5GB de dados</li>
+            </ul>
+            
+            <h3>Passos para Configurar</h3>
+            <ol>
+                <li>Acesse <code>https://console.firebase.google.com</code></li>
+                <li>Crie um novo projeto</li>
+                <li>Registre um app web</li>
+                <li>Copie a configuração</li>
+                <li>Cole em <code>js/config.js</code></li>
+                <li>Ative "Email/Password" em Authentication</li>
+                <li>Crie um banco Firestore Database</li>
+                <li>Configure as regras de segurança</li>
+            </ol>
+            
+            <p>
+                <strong>Para instruções detalhadas sobre Firebase, consulte:</strong>
+                <a href="FIREBASE_SETUP.md" class="btn">Ver Guia Firebase</a>
+            </p>
+            
+            <h2>📂 Estrutura do Projeto</h2>
+            
+            <table>
+                <tr>
+                    <th>Arquivo/Pasta</th>
+                    <th>Descrição</th>
+                </tr>
+                <tr>
+                    <td><code>index.html</code></td>
+                    <td>Página principal da aplicação</td>
+                </tr>
+                <tr>
+                    <td><code>css/styles.css</code></td>
+                    <td>Estilos principais e layout</td>
+                </tr>
+                <tr>
+                    <td><code>css/responsive.css</code></td>
+                    <td>Media queries para responsividade</td>
+                </tr>
+                <tr>
+                    <td><code>js/config.js</code></td>
+                    <td>Configuração do Firebase</td>
+                </tr>
+                <tr>
+                    <td><code>js/auth.js</code></td>
+                    <td>Autenticação e login</td>
+                </tr>
+                <tr>
+                    <td><code>js/dashboard.js</code></td>
+                    <td>Dashboard e gráficos</td>
+                </tr>
+                <tr>
+                    <td><code>js/ativos.js</code></td>
+                    <td>Gestão de ativos</td>
+                </tr>
+                <tr>
+                    <td><code>js/utils.js</code></td>
+                    <td>Funções utilitárias</td>
+                </tr>
+            </table>
+            
+            <h2>🎓 Tutorial de Uso</h2>
+            
+            <h3>1. Criar uma Conta</h3>
+            <ol>
+                <li>Clique em "Cadastro" na tela inicial</li>
+                <li>Preencha Nome, Email e Senha</li>
+                <li>Clique em "Criar Conta"</li>
+                <li>Você será levado ao Dashboard</li>
+            </ol>
+            
+            <h3>2. Adicionar um Ativo</h3>
+            <ol>
+                <li>Vá para "Meus Ativos"</li>
+                <li>Clique em "+ Novo Ativo"</li>
+                <li>Preencha os detalhes:
+                    <ul>
+                        <li><strong>Ticker:</strong> PETR4, VALE3, etc</li>
+                        <li><strong>Quantidade:</strong> Quantas unidades</li>
+                        <li><strong>Preço Médio:</strong> Preço de compra</li>
+                        <li><strong>Tipo:</strong> Ação, Fundo, etc</li>
+                        <li><strong>Data de Compra:</strong> Quando foi comprado</li>
+                    </ul>
+                </li>
+                <li>Clique em "Adicionar"</li>
+            </ol>
+            
+            <h3>3. Ver o Dashboard</h3>
+            <ul>
+                <li>Saldo total do portfólio</li>
+                <li>Ganho ou perda em R$</li>
+                <li>Gráfico de composição (pizza)</li>
+                <li>Gráfico de performance (linha)</li>
+                <li>Principais ativos da carteira</li>
+            </ul>
+            
+            <h3>4. Acompanhar Transações</h3>
+            <ol>
+                <li>Vá para "Transações"</li>
+                <li>Filtre por tipo: Compras ou Vendas</li>
+                <li>Filtre por data se desejar</li>
+                <li>Veja detalhes de cada operação</li>
+            </ol>
+            
+            <h3>5. Análise de Portfólio</h3>
+            <ol>
+                <li>Vá para "Análise"</li>
+                <li>Veja gráficos de risco (radar)</li>
+                <li>Acompanhe ganhos/perdas mensais</li>
+                <li>Consulte estatísticas (ROI, Sharpe, Volatilidade)</li>
+            </ol>
+            
+            <h2>🔐 Segurança</h2>
+            <div class="alert info">
+                <strong>ℹ️ Informações de Segurança:</strong>
+                <ul>
+                    <li>Firebase Authentication garante senhas criptografadas</li>
+                    <li>Firestore protege dados com regras de acesso</li>
+                    <li>LocalStorage é sincronizado com Firestore</li>
+                    <li>Nunca compartilhe suas credenciais Firebase</li>
+                    <li>Use HTTPS em produção</li>
+                </ul>
+            </div>
+            
+            <h2>🌐 Preços de Ativos</h2>
+            <p>
+                Atualmente, a aplicação usa preços simulados para demonstração. Para usar preços reais, 
+                integre uma API como:
+            </p>
+            <ul>
+                <li><strong>Alpha Vantage</strong> - Gratuito com limite de requisições</li>
+                <li><strong>IEX Cloud</strong> - Preço premium</li>
+                <li><strong>Polygon.io</strong> - Dados profissionais</li>
+                <li><strong>Brazil Stock API</strong> - Específico para ações brasileiras</li>
+            </ul>
+            
+            <h2>📱 Compatibilidade</h2>
+            <table>
+                <tr>
+                    <th>Navegador</th>
+                    <th>Versão Mínima</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Chrome</td>
+                    <td>90+</td>
+                    <td>✅ Completo</td>
+                </tr>
+                <tr>
+                    <td>Firefox</td>
+                    <td>88+</td>
+                    <td>✅ Completo</td>
+                </tr>
+                <tr>
+                    <td>Safari</td>
+                    <td>14+</td>
+                    <td>✅ Completo</td>
+                </tr>
+                <tr>
+                    <td>Edge</td>
+                    <td>90+</td>
+                    <td>✅ Completo</td>
+                </tr>
+                <tr>
+                    <td>Mobile Safari</td>
+                    <td>12+</td>
+                    <td>✅ Responsivo</td>
+                </tr>
+            </table>
+            
+            <h2>❓ FAQ</h2>
+            
+            <h3>Como mudo minha senha?</h3>
+            <p>No Firebase Authentication, você pode resetar a senha usando "Esqueceu a senha?" na tela de login.</p>
+            
+            <h3>Posso exportar meus dados?</h3>
+            <p>Sim! Use a função exportarAsCSV() ou imprima o relatório diretamente.</p>
+            
+            <h3>Os dados são perdidos se limpar o cache?</h3>
+            <p>Se estiver usando Firebase, não! O Firestore mantém seus dados. Se usar apenas localStorage, sim.</p>
+            
+            <h3>Como integrar preços reais?</h3>
+            <p>Substitua os dados em <code>js/config.js</code> ou crie um backend que integre com uma API de preços.</p>
+            
+            <h2>🤝 Suporte</h2>
+            <div class="quick-links">
+                <h4>Links Úteis:</h4>
+                <a href="README_COMPLETO.md">📄 README Completo</a>
+                <a href="FIREBASE_SETUP.md">🔥 Guia Firebase</a>
+                <a href="https://firebase.google.com/docs">📚 Documentação Firebase</a>
+                <a href="https://github.com/robsoncsoares/carteira-virtual">💻 Repositório GitHub</a>
+            </div>
+            
+            <h2>📝 Licença</h2>
+            <p>
+                Este projeto está sob a licença MIT. Você é livre para usar, modificar e distribuir, 
+                desde que mantenha o aviso de copyright e licença.
+            </p>
+            
+            <h2>🎉 Próximos Passos</h2>
+            <ol>
+                <li>✅ Configure Firebase seguindo o guia</li>
+                <li>✅ Crie sua primeira conta</li>
+                <li>✅ Adicione seus ativos reais</li>
+                <li>✅ Acompanhe seu portfólio diariamente</li>
+                <li>✅ Compartilhe feedback e sugestões</li>
+            </ol>
+            
+            <div class="alert success">
+                <strong>🎊 Parabéns!</strong> Você está pronto para começar a usar a Carteira Virtual. 
+                Boa sorte nos seus investimentos! 📈
+            </div>
+        </div>
+        
+        <footer>
+            <p>
+                Desenvolvido com ❤️ por Robson Campos Soares
+                <br>
+                Última atualização: 2026-02-07
+                <br>
+                © 2024-2026. Todos os direitos reservados.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

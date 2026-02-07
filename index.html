@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteira Virtual - Gestão de Ativos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <!-- Tela de Autenticação -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <h1>📈 Carteira Virtual</h1>
+                <p>Gestão Inteligente de Ativos</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('register')">Cadastro</button>
+            </div>
+
+            <!-- Login -->
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                <p id="login-error" class="error-msg"></p>
+            </form>
+
+            <!-- Registro -->
+            <form id="register-form" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirmar Senha</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Criar Conta</button>
+                <p id="register-error" class="error-msg"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Principal -->
+    <div id="app-container" class="app-container hidden">
+        <!-- Barra Lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📈 Carteira</h2>
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" onclick="switchPage('dashboard')" class="nav-item active">Dashboard</a>
+                <a href="#" onclick="switchPage('ativos')" class="nav-item">Meus Ativos</a>
+                <a href="#" onclick="switchPage('transacoes')" class="nav-item">Transações</a>
+                <a href="#" onclick="switchPage('analise')" class="nav-item">Análise</a>
+                <a href="#" onclick="switchPage('perfil')" class="nav-item">Perfil</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="logout()" class="btn btn-danger btn-block">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-title">
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-user">
+                    <span id="user-email">Usuário</span>
+                    <div class="user-avatar" id="user-avatar"></div>
+                </div>
+            </header>
+
+            <!-- Pages Container -->
+            <div class="pages-container">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page active">
+                    <div class="dashboard-grid">
+                        <!-- Cards de Resumo -->
+                        <div class="card card-summary">
+                            <h3>Saldo Total</h3>
+                            <p class="value" id="total-balance">R$ 0,00</p>
+                            <span class="chart-small" id="balance-trend">↑ 2.5%</span>
+                        </div>
+                        <div class="card card-summary">
+                            <h3>Ganho/Perda</h3>
+                            <p class="value" id="total-gain">R$ 0,00</p>
+                            <span class="chart-small" id="gain-trend">↑ 5.2%</span>
+                        </div>
+                        <div class="card card-summary">
+                            <h3>Total Investido</h3>
+                            <p class="value" id="total-invested">R$ 0,00</p>
+                        </div>
+                        <div class="card card-summary">
+                            <h3>Diversificação</h3>
+                            <p class="value" id="diversification">0%</p>
+                        </div>
+
+                        <!-- Gráfico de Portfólio -->
+                        <div class="card card-full">
+                            <h3>Composição do Portfólio</h3>
+                            <canvas id="portfolio-chart"></canvas>
+                        </div>
+
+                        <!-- Gráfico de Performance -->
+                        <div class="card card-full">
+                            <h3>Performance do Portfólio</h3>
+                            <canvas id="performance-chart"></canvas>
+                        </div>
+
+                        <!-- Ativos Recentes -->
+                        <div class="card card-full">
+                            <h3>Ativos Principais</h3>
+                            <div id="top-assets" class="assets-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meus Ativos Page -->
+                <div id="ativos-page" class="page">
+                    <div class="page-actions">
+                        <button class="btn btn-primary" onclick="openAddAssetModal()">+ Novo Ativo</button>
+                        <input type="text" id="search-assets" placeholder="Buscar ativo..." class="search-input">
+                    </div>
+
+                    <div class="assets-table-container">
+                        <table class="assets-table">
+                            <thead>
+                                <tr>
+                                    <th>Ticker</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço Médio</th>
+                                    <th>Valor Atual</th>
+                                    <th>Ganho/Perda</th>
+                                    <th>%</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="assets-tbody">
+                                <tr>
+                                    <td colspan="7" class="empty-message">Nenhum ativo adicionado. Clique em "+ Novo Ativo" para começar!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Transações Page -->
+                <div id="transacoes-page" class="page">
+                    <div class="page-actions">
+                        <div class="filter-group">
+                            <select id="transaction-filter" class="filter-select">
+                                <option value="">Todas as Transações</option>
+                                <option value="compra">Compras</option>
+                                <option value="venda">Vendas</option>
+                            </select>
+                            <input type="date" id="date-from" class="filter-input">
+                            <input type="date" id="date-to" class="filter-input">
+                        </div>
+                    </div>
+
+                    <div class="transactions-container">
+                        <div id="transactions-list" class="transactions-list"></div>
+                    </div>
+                </div>
+
+                <!-- Análise Page -->
+                <div id="analise-page" class="page">
+                    <div class="analysis-grid">
+                        <div class="card card-full">
+                            <h3>Análise de Risco</h3>
+                            <canvas id="risk-chart"></canvas>
+                        </div>
+
+                        <div class="card card-full">
+                            <h3>Evolução Mensal</h3>
+                            <canvas id="monthly-chart"></canvas>
+                        </div>
+
+                        <div class="card">
+                            <h3>Estatísticas</h3>
+                            <div class="stats-list">
+                                <div class="stat">
+                                    <span>Volatilidade</span>
+                                    <strong id="volatility">0%</strong>
+                                </div>
+                                <div class="stat">
+                                    <span>Sharp Ratio</span>
+                                    <strong id="sharpe">0.00</strong>
+                                </div>
+                                <div class="stat">
+                                    <span>ROI</span>
+                                    <strong id="roi">0%</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil Page -->
+                <div id="perfil-page" class="page">
+                    <div class="card card-form">
+                        <h3>Informações da Conta</h3>
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" id="profile-name" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="profile-email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Data de Cadastro</label>
+                                <input type="text" id="profile-date" readonly>
+                            </div>
+                            <button type="button" class="btn btn-secondary" onclick="editProfile()">Editar Perfil</button>
+                        </form>
+                    </div>
+
+                    <div class="card card-form">
+                        <h3>Preferências</h3>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="dark-mode" onchange="toggleDarkMode()">
+                                Modo Escuro
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifications" checked>
+                                Notificações Ativadas
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal: Adicionar Ativo -->
+    <div id="asset-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Novo Ativo</h2>
+                <button class="modal-close" onclick="closeModal('asset-modal')">&times;</button>
+            </div>
+            <form id="asset-form">
+                <div class="form-group">
+                    <label for="asset-ticker">Ticker (ex: PETR4, VALE3)</label>
+                    <input type="text" id="asset-ticker" placeholder="PETR4" required>
+                </div>
+                <div class="form-group">
+                    <label for="asset-quantity">Quantidade</label>
+                    <input type="number" id="asset-quantity" placeholder="100" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="asset-price">Preço Médio (R$)</label>
+                    <input type="number" id="asset-price" placeholder="0.00" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="asset-type">Tipo</label>
+                    <select id="asset-type" required>
+                        <option value="acao">Ação</option>
+                        <option value="fundo">Fundo</option>
+                        <option value="cripto">Criptomoeda</option>
+                        <option value="renda-fixa">Renda Fixa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="asset-date">Data da Compra</label>
+                    <input type="date" id="asset-date" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('asset-modal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/ativos.js"></script>
+    <script src="js/utils.js"></script>
+</body>
+</html>

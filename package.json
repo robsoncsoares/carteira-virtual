@@ -1,0 +1,23 @@
+{
+  "name": "carteira-virtual",
+  "version": "1.0.0",
+  "description": "Plataforma de gestão de ativos da bolsa de valores com Firebase",
+  "main": "index.html",
+  "scripts": {
+    "serve": "python3 -m http.server 8000",
+    "start": "npm run serve"
+  },
+  "dependencies": {
+    "firebase": "^10.7.0",
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "bolsa",
+    "investimento",
+    "ativos",
+    "firebase"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT"
+}

@@ -30,10 +30,32 @@ export const loginWithEmail = async (email, password) => {
 
 export const loginWithGoogle = async () => {
   try {
+    // Configurar o provider para forçar seleção de conta
+    googleProvider.setCustomParameters({
+      prompt: 'select_account'
+    });
+    
     const result = await signInWithPopup(auth, googleProvider);
     return { user: result.user, error: null };
   } catch (error) {
-    return { user: null, error: error.message };
+    console.error('Erro no login Google:', error);
+    console.error('Código do erro:', error.code);
+    console.error('Mensagem:', error.message);
+    
+    // Retornar mensagens de erro mais específicas
+    let errorMessage = 'Erro ao fazer login com Google';
+    
+    if (error.code === 'auth/popup-closed-by-user') {
+      errorMessage = 'Popup fechado. Tente novamente.';
+    } else if (error.code === 'auth/popup-blocked') {
+      errorMessage = 'Popup bloqueado. Habilite popups para este site.';
+    } else if (error.code === 'auth/unauthorized-domain') {
+      errorMessage = 'Domínio não autorizado. Configure no Firebase Console.';
+    } else if (error.code === 'auth/operation-not-allowed') {
+      errorMessage = 'Login com Google não está habilitado. Ative no Firebase Console.';
+    }
+    
+    return { user: null, error: errorMessage };
   }
 };
 

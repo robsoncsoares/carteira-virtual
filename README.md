@@ -1,68 +1,107 @@
-# 📈 Carteira Virtual - Gestão Inteligente de Ativos
+# 💰 Carteira Virtual - Gestão de Ativos
 
-Uma plataforma web responsiva e moderna para gerenciar seu portfólio de investimentos com integração Firebase.
+Sistema completo e responsivo para gestão de investimentos e ativos financeiros, desenvolvido com React e Firebase.
 
-## ✨ Destaques
+## 🚀 Funcionalidades
 
-🎯 **Dashboard em Tempo Real** - Visualize seu portfólio com gráficos interativos  
-💼 **Gestão Completa** - Adicione, edite e analise seus ativos  
-📱 **Responsivo** - Funciona perfeitamente em qualquer dispositivo  
-🔐 **Seguro** - Autenticação Firebase e dados encriptados  
-🌙 **Modo Escuro** - Interface confortável com tema customizável  
+- ✅ Autenticação de usuários (Email/Senha e Google)
+- ✅ Dashboard com visão geral dos ativos
+- ✅ Cadastro e gerenciamento de ativos (ações, fundos, criptomoedas, etc)
+- ✅ Visualização de gráficos e estatísticas
+- ✅ Cálculo automático de rentabilidade
+- ✅ Histórico de transações
+- ✅ Design responsivo para mobile e desktop
 
-## 🚀 Começar em 2 Minutos
+## 🛠️ Tecnologias
 
+- **React** - Framework JavaScript
+- **Vite** - Build tool
+- **Firebase** - Backend (Auth, Firestore)
+- **Recharts** - Gráficos
+- **Lucide React** - Ícones
+- **React Router** - Navegação
+
+## 📋 Pré-requisitos
+
+- Node.js 16+
+- Conta no Firebase
+
+## ⚙️ Configuração
+
+1. Clone o repositório
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Configure o Firebase:
+   - Crie um projeto no [Firebase Console](https://console.firebase.google.com)
+   - Ative Authentication (Email/Password e Google)
+   - Crie um banco Firestore
+   - Copie as credenciais do Firebase
+
+4. Crie o arquivo `.env` na raiz do projeto:
+   ```env
+   VITE_FIREBASE_API_KEY=sua_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=seu_auth_domain
+   VITE_FIREBASE_PROJECT_ID=seu_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=seu_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
+   VITE_FIREBASE_APP_ID=seu_app_id
+   ```
+
+## 🚀 Como Executar
+
+### Desenvolvimento
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/robsoncsoares/carteira-virtual.git
-cd carteira-virtual
-
-# 2. Inicie o servidor
-npm start
-# ou: python3 -m http.server 8000
-
-# 3. Abra no navegador
-# http://localhost:8000
+npm run dev
 ```
 
-## 🌟 Funcionalidades
-
-- 📊 Dashboard com gráficos em tempo real
-- 💼 Gestão de ativos (ações, fundos, criptos)
-- 📝 Histórico completo de transações
-- 📈 Análise de performance e risco
-- 🔐 Autenticação segura com Firebase
-- 📱 Totalmente responsivo
-- 🌙 Modo claro/escuro
-
-## 📚 Documentação
-
-- [Guia Completo](README_COMPLETO.md)
-- [Firebase Setup](FIREBASE_SETUP.md)
-- [Guia de Desenvolvimento](DESENVOLVIMENTO.md)
-- [Documentação Visual](docs.html)
-
-## 🚀 Setup Rápido
-
+### Build para Produção
 ```bash
-npm install
-npm start
+npm run build
 ```
 
-Abra `http://localhost:8000` e crie sua conta!
+### Deploy no Firebase
+```bash
+npm run build
+firebase deploy
+```
 
-## 🔥 Firebase (Opcional)
+## 📱 Estrutura do Projeto
 
-1. Crie um projeto em https://console.firebase.google.com
-2. Copie as credenciais
-3. Cole em `js/config.js`
+```
+src/
+├── components/        # Componentes reutilizáveis
+├── pages/            # Páginas da aplicação
+├── services/         # Serviços (Firebase, API)
+├── contexts/         # Contextos React
+├── hooks/            # Custom Hooks
+├── utils/            # Funções utilitárias
+└── styles/           # Estilos globais
+```
 
-[Ver guia detalhado](FIREBASE_SETUP.md)
+## 📊 Estrutura de Dados
+
+### Ativo
+```javascript
+{
+  id: string,
+  userId: string,
+  nome: string,
+  tipo: 'acao' | 'fundo' | 'cripto' | 'renda-fixa' | 'outro',
+  quantidade: number,
+  precoCompra: number,
+  precoAtual: number,
+  dataCompra: timestamp,
+  createdAt: timestamp
+}
+```
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
 
 ## 📄 Licença
 
-MIT License
-
-## 🙏 Créditos
-
-Desenvolvido com ❤️ por Robson Campos Soares
+MIT

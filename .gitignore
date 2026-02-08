@@ -1,53 +1,34 @@
-# .gitignore
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Dependências
-node_modules/
-npm-debug.log
-yarn-error.log
-package-lock.json
-yarn.lock
+node_modules
+dist
+dist-ssr
+*.local
 
-# Arquivos de ambiente
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Environment variables
 .env
 .env.local
-.env.*.local
-
-# Credenciais Firebase (NÃO commit!)
-firebase-credentials.json
-serviceAccountKey.json
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-
-# Build e distribuição
-dist/
-build/
-*.zip
-*.tar.gz
-
-# Cache
-.cache/
-node_modules/.cache
-
-# Logs
-logs/
-*.log
-
-# Testes
-coverage/
-.nyc_output/
-
-# Sistema
-.gitkeep
-.netlify
-.vercel
-
-# Ativos gerados
-/css/*.min.css
-/js/*.min.js

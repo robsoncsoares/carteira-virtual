@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Regra para a coleção de ativos
+    match /ativos/{ativoId} {
+      // Permitir leitura apenas se o documento pertence ao usuário autenticado
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      
+      // Permitir criação apenas se o usuário estiver autenticado e o userId corresponder
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // Permitir atualização apenas se o documento pertence ao usuário
+      allow update: if request.auth != null && resource.data.userId == request.auth.uid;
+      
+      // Permitir exclusão apenas se o documento pertence ao usuário
+      allow delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+  }
+}

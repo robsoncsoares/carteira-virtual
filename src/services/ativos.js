@@ -54,16 +54,24 @@ export const getUserAtivos = async (userId) => {
   try {
     const q = query(
       collection(db, COLLECTION_NAME),
-      where('userId', '==', userId),
-      orderBy('createdAt', 'desc')
+      where('userId', '==', userId)
     );
     const querySnapshot = await getDocs(q);
     const ativos = [];
     querySnapshot.forEach((doc) => {
       ativos.push({ id: doc.id, ...doc.data() });
     });
+    
+    // Ordenar no lado do cliente por createdAt (mais recente primeiro)
+    ativos.sort((a, b) => {
+      const dateA = a.createdAt?.toMillis?.() || 0;
+      const dateB = b.createdAt?.toMillis?.() || 0;
+      return dateB - dateA;
+    });
+    
     return { ativos, error: null };
   } catch (error) {
+    console.error('Erro ao buscar ativos:', error);
     return { ativos: [], error: error.message };
   }
 };

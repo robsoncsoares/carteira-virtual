@@ -25,14 +25,19 @@ const Dashboard = () => {
   const loadAtivos = async () => {
     setLoading(true);
     const { ativos: data, error } = await getUserAtivos(user.uid);
-    if (!error) {
+    if (error) {
+      console.error('Erro ao carregar ativos:', error);
+    } else {
+      console.log('Ativos carregados:', data);
       setAtivos(data);
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    loadAtivos();
+    if (user) {
+      loadAtivos();
+    }
   }, [user]);
 
   const handleDeleteAtivo = async (id) => {
